@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, Profile
 
 
 def register(request):
@@ -9,7 +9,7 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             messages.success(
                 request, "Your account has been created! Your ar now able to login.")
             return redirect('login')
@@ -22,9 +22,10 @@ def register(request):
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user.profile)
-
+        # p_form = ProfileUpdateForm(
+        #     request.POST, request.FILES, instance=request.user.profile)
+        prf = Profile.objects.get(user = request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance = prf)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
@@ -33,8 +34,8 @@ def profile(request):
 
     else:
         u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
-
+        prf = Profile.objects.get(user = request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance = prf)
     context = {
         'u_form': u_form,
         'p_form': p_form

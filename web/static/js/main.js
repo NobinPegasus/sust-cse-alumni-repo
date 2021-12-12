@@ -34,3 +34,7 @@ $('#like').click(
             likeIcon.toggleClass('far')
         }
     })
+
+    // $('#id_registration').click(
+    //   placeholder = ""
+    // )
