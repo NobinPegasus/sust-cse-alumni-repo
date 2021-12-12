@@ -1,12 +1,12 @@
 from .models import Post, Comment
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import PostForm
+from .forms import PostForm, DropViewForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
@@ -28,16 +28,6 @@ def image(request):
         'carx':carx
     })
     return render_to_response('post_detail.html',variables)
-
-
-
-def default_map(request):
-    # TODO: move this token to Django settings from an environment variable
-    # found in the Mapbox account settings and getting started instructions
-    # see https://www.mapbox.com/account/ under the "Access tokens" section
-    mapbox_access_token = 'pk.your_mapbox_access_token'
-    return render(request, 'blog/default.html',
-                  { 'mapbox_access_token': mapbox_access_token })
 
 
 
@@ -67,7 +57,7 @@ class UserPostListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        user = get_object_or_404(CustomUser, email=self.kwargs.get('email'))
         return Post.objects.filter(author=user).order_by('-date_posted')
 
 
@@ -79,9 +69,21 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
 
+    def get_form(self, form_class=None):
+        form = super(PostCreateView, self).get_form(form_class)
+        form.fields['title'].initial = self.request.user.first_name
+        form.fields['email'].initial = self.request.user.email
+        return form
+
     def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+        user1 = self.request.user
+        print('user1', user1)
+        form.instance.author = user1
+        print('Post ', self.request.POST)
+        print('user ',self.request.user)
+        print('registration ',self.request.user.first_name)
+
+        return super().form_valid({'form':form})
 
     # def rate_object(request, object_pk):
     #     object = get_object_or_404(User.objects.all(), id=user_pk)
@@ -96,6 +98,22 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     #     form.fields['hours'].widget = TimePickerInput()
     #     return form
 
+def dropView(request):
+    # print('Upore  ')
+    if(request.method=='POST'):
+        form = DropViewForm(request.POST)
+        if(form.is_valid()):
+            group_categ = form.cleaned_data.get('fields')
+            # print('Hello  ',group_categ)
+
+
+    else:
+        
+        form = DropViewForm()
+
+    return render(request, 'blog/dropView.html', {'form': form})
+
+
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -103,10 +121,12 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        print(self.request.user)
         return super().form_valid(form)
 
     def test_func(self):
         post = self.get_object()
+        print('Post 2', post)
         if self.request.user == post.author:
             return True
         return False
@@ -148,7 +168,7 @@ def about(request):
 def add_comment(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
-        user = User.objects.get(id=request.POST.get('user_id'))
+        user = CustomUser.objects.get(id=request.POST.get('user_id'))
         text = request.POST.get('text')
         Comment(author=user, post=post, text=text).save()
         messages.success(request, "Your comment has been added successfully.")
