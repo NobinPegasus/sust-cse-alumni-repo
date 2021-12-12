@@ -25,6 +25,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
     path('about/', views.about, name='about'),
     path('post/<int:pk>/comment/', add_comment, name='add_comment'),
+    path('userGroups/', views.dropView, name='drop_url'),
 
 ]
 
