@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'django_starfield',
-    'django_google_maps',
+    # 'users'
 
 ]
 
@@ -58,7 +58,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'web.urls'
+
+AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_PROFILE_MODULE = 'users.Profile'
 
 TEMPLATES = [
     {
@@ -87,8 +91,6 @@ BOOTSTRAP4 = {
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-GOOGLE_MAPS_API_KEY = 'AIzaSyAEGfzuHUiW2qWWYubTYX-lgRnF9MZRWuk'
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -96,6 +98,7 @@ DATABASES = {
     }
 }
 
+# AUTH_USER_MODEL
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -108,12 +111,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization
@@ -151,7 +152,8 @@ MEDIA_URL = '/media/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# Authentication Settings
+
+# Authentication S
 
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'login'
