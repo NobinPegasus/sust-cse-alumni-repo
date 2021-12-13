@@ -9,9 +9,7 @@
             <legend class="border-bottom mb-4">Create Post</legend>
             {{ form|crispy }}
             {{ form.media }}
-            {{ author.first_name }}
-            <h6 class="mt-0">Hello World!</h6>
-            <h2> {{user}} </h2>
+
             {% for post in posts %}
 
                 <article class="media content-section" style="width:1100px; margin:0 auto padding:3">

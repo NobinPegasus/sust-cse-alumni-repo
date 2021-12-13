@@ -71,19 +71,19 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def get_form(self, form_class=None):
         form = super(PostCreateView, self).get_form(form_class)
-        form.fields['title'].initial = self.request.user.first_name
+        form.fields['title'].initial = self.request.user.name
         form.fields['email'].initial = self.request.user.email
         return form
 
     def form_valid(self, form):
         user1 = self.request.user
-        print('user1', user1)
+        # print('user1', user1)
         form.instance.author = user1
-        print('Post ', self.request.POST)
-        print('user ',self.request.user)
-        print('registration ',self.request.user.first_name)
+        # print('Post ', self.request.POST)
+        # print('user ',self.request.user)
+        # print('registration ',self.request.user.name)
 
-        return super().form_valid({'form':form})
+        return super().form_valid(form)
 
     # def rate_object(request, object_pk):
     #     object = get_object_or_404(User.objects.all(), id=user_pk)
@@ -108,7 +108,7 @@ def dropView(request):
 
 
     else:
-        
+
         form = DropViewForm()
 
     return render(request, 'blog/dropView.html', {'form': form})
@@ -121,12 +121,12 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        print(self.request.user)
+        # print(self.request.user)
         return super().form_valid(form)
 
     def test_func(self):
         post = self.get_object()
-        print('Post 2', post)
+        # print('Post 2', post)
         if self.request.user == post.author:
             return True
         return False

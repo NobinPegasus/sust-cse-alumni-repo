@@ -37,11 +37,11 @@ from django.utils.translation import ugettext_lazy as _
 
 class CustomUser(AbstractUser):
     username = None
-    first_name = models.CharField('Name',max_length=200,unique=True)
+    name = models.CharField('Name',max_length=300,unique=False, blank=False,null=False)
     email = models.EmailField(_('email address'), unique=True)
-    registration = models.IntegerField()
+    registration = models.IntegerField(null=True)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['registration']
 
     objects = CustomUserManager()
 
