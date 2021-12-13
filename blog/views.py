@@ -117,7 +117,7 @@ def dropView(request):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content','chamber','address','fees','days','start_time','end_time','image','review','rating','overall_rating']
+    fields = ['title', 'email','personal_website','m_uni','phd_uni','current_employer','position','github','linkedin','research_area','work_field']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
