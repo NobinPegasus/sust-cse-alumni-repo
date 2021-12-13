@@ -8,8 +8,9 @@
     <div class="media">
         <img class="d-flex mr-3 rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="">
         <div class="media-body">
-            <h4 class="mt-0"><a href="{% url 'user_posts' object.author.username %}">{{ object.author }}</a></h4>
-            <h6 class="mt-0">{{ object.author.email }}</h6>
+          <br>
+            <h4 class="mt-0"><a href="{% url 'user_posts' object.author.username %}">{{ object.title }}</a></h4>
+            <!-- <h6 class="mt-0">{{ object.author.email }}</h6> -->
         </div>
     </div>
     <hr>
@@ -17,7 +18,7 @@
     <!-- Post information -->
     <div>
         <p>
-            <b>Info </b>
+            <b>Edit Informations</b>
             {% if object.author == user %}
             <a class="btn btn-info btn-sm mt-1 mb-1 float-right" href="{% url 'post_update' object.id %}">Update</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1 float-right mr-2 "
@@ -89,8 +90,6 @@
 
       <div class="container" >
         <!-- navbar -->
-        <div class="row" >
-
 
           <div class="col-md-8" id='right' style="margin-left: auto; margin-right: 0;" >
             <br>
@@ -102,12 +101,7 @@
               <li class="rail-menu-selected"><a href="contact.html">contact</a></li>
             </ul>
           </div>
-        </div> <!-- end -->
-
-
-        <br>
-        <h4>About {{object.title|safe}}</h4>
-        <br>
+         <!-- end -->
         <!--    <h5>Research Engineers and Research Associates</h5>
         <p>
         We are hiring a research engineer. To apply, please go through the official <a href="https://aprecruit.berkeley.edu/JPF02481">UC Berkeley application form</a>. We look forward to hearing from you!
