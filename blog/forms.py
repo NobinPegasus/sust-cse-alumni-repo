@@ -21,14 +21,14 @@ class DropViewForm(forms.Form):
 
 
 class PostForm(forms.ModelForm):
-    title = forms.CharField(disabled = True,initial=None)
+    title = forms.CharField(label = 'Name',disabled = True,initial=None)
     email = forms.CharField(disabled = True)
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
 
     class Meta:
         model = Post
-        fields = ['title', 'email','chamber','address','fees','days','start_time','end_time','image','review','rating','overall_rating']
+        fields = ['title', 'email','personal_website','m_uni','phd_uni','current_employer','position','github','linkedin','research_area','work_field']
 
     #     date = forms.DateTimeField(
     #     input_formats=['%d/%m/%Y %H:%M'],

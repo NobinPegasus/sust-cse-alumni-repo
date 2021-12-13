@@ -47,33 +47,23 @@ class PostManager(models.Manager):
 class Post(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField('Name',max_length=100)
+        # 'title', 'email','m_uni','phd_uni','current_employer','position','github','linkedIn','research_Area','Personal_website'
+    title = models.CharField(max_length=500)
     # email = models.EmailField(_('email address'), unique=True)
-    email = models.EmailField('Email',max_length=100)
-    chamber = models.CharField('Chamber\'s Name',max_length=200)
-    address = models.CharField('Address',max_length=100, blank=True)
-    fees = models.IntegerField(default=0)
+    email = models.EmailField('Contact Email', max_length=500)
+    personal_website = models.CharField('Personal Website', max_length=500,blank=True)
+    m_uni = models.CharField('Master\'s University', max_length=400,blank=True)
+    phd_uni = models.CharField('PhD University',max_length=400, blank=True)
+    current_employer = models.CharField('Current Employer',max_length=500, blank=True)
     # days = models.ManyToManyField(Days)
-    days = MultiSelectField('Available Days', choices= DAYS_OF_WEEK)
-    # hours = models.DateTimeField()
-    start_time = models.TimeField('Chamber Beginning Time')
-    end_time = models.TimeField('Chamber Ending Time')
-    image = models.ImageField( upload_to='profile_pics')
-    review = models.TextField()
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    position = models.CharField('Position',max_length=500, blank=True)
+    github = models.CharField('Github',max_length=500, blank=True)
+    linkedin = models.CharField('LinkedIn',max_length=500, blank=True)
+    research_area = models.CharField('Research Area',max_length=500, blank=True)
+    work_field = models.CharField('Working Field',max_length=500, blank=True,default=None)
 
-    # rating = models.ManyToManyField(MyRating)
-    rating = models.IntegerField('Behavior')
-    overall_rating = models.PositiveIntegerField(validators=[
-            MaxValueValidator(10),
-            MinValueValidator(0)
-        ])
 
-    # rating = GenericRelation(Rating, related_query_name='foos')
-    # rating = Foo.objects.filter(ratings__isnull=False).order_by('ratings__average')
-    # Foo.objects.filter(ratings__isnull=False).order_by('ratings__average')
-    liked = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, blank=True, related_name='liked')
+
     date_posted = models.DateTimeField(default=timezone.now)
 
     objects = PostManager()
@@ -91,19 +81,12 @@ class Post(models.Model):
     #     return f'{self.title} Post'
 
     def save(self):
-        print('Author   ', self.author.first_name)
-        print("Age   ", self.title)
-        self.title = self.author.first_name
-        print("Pore   ", self.title)
-        print('Auth user Model  ', settings.AUTH_USER_MODEL)
+        self.title = self.author.name
+        self.email = self.author.email
+        print('Vuya ID   ', type(self.work_field))
+        # self.registration =
         super().save()  # saving image first
 
-        img = Image.open(self.image.path) # Open image using self
-
-        if (img.height > 1020 or img.width > 1920):
-            new_img = (1020, 1920)
-            img.thumbnail(new_img)
-            img.save(self.image.path)  # saving image at the same path
 
 
 class Comment(models.Model):

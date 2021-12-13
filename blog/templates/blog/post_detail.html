@@ -17,7 +17,7 @@
     <!-- Post information -->
     <div>
         <p>
-            <b>Posted on {{ object.date_posted|date:"F d, Y" }}</b>
+            <b>Info </b>
             {% if object.author == user %}
             <a class="btn btn-info btn-sm mt-1 mb-1 float-right" href="{% url 'post_update' object.id %}">Update</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1 float-right mr-2 "
@@ -33,140 +33,199 @@
     <hr>
 
     <!-- Post Content -->
-<style>
-
-p{
-  font-family: Trebuchet MS;
-}
-</style>
-
-<style>
-
-b{
-  font-size: 1.2em;
-  font-weight: bold;
-}
-</style>
-
-    <p class="lead">
-      <label for="fname" align=""><b>Doctor's Name:</b> {{object.title|safe}}</label>
-    </p>
-
-    <p class="lead">
-      <label for="fname" align=""><b>Speciality: </b>{{ object.content|safe}}</label>
-      </p>
-    <p class="lead">
-      <label for="lname" align=""><b>Chamber: </b>{{ object.chamber|safe}}</label>
-      </p>
-    <p class="lead">
-      <label for="aname" align=""><b>Address: </b>{{ object.address|safe}}</label></p>
-    <p class="lead">
-      <label for="slr" align=""><b>Fees: </b>{{ object.fees|safe}}</label></p>
-    <p class="lead">
-      <label for="ds" align=""><b>Available Days: </b>{{ object.days|safe}}</label>
-      </p>
-    <p class="lead">
-      <label for="vname" align=""><b>Visiting Hours: </b>{{ object.start_time|safe}} - {{ object.end_time|safe}}</label>
-    </p>
-    <!-- <p class="lead">{{ object.end_time|safe|linebreaks }}</p> -->
-    <p class="lead">
-      <label for="bv" align=""><b>Behaviour: </b>{{ object.rating|safe}}/5</label>
-    </p>
-    <p class="lead">
-      <label for="rtn" align=""><b>Overall Rating: </b>{{ object.overall_rating|safe}}/10</label></p>
-      <p class="lead">
-        <label for="rvw" align=""><b>Review: </b><br>{{ object.review|safe}}</label>
-      </p>
 
 
-    <hr>
+    <body id="rail-body">
+
+
+      <style>
+        <!
+      element.style {
+       }
+       .h5, h5 {
+       font-size: 1.25rem;
+       }
+
+      .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+       margin-bottom: .5rem;
+       font-family: inherit;
+       font-weight: 500;
+       line-height: 1.2;
+       color: #606060;
+       }
+       h1, h2, h3, h4, h5, h6 {
+       margin-top: 0;
+       margin-bottom: .5rem;
+       }
+       *, ::after, ::before {
+       box-sizing: border-box;
+       }
+       user agent stylesheet
+       #h5 {
+       display: block;
+       font-size: 0.83em;
+       margin-block-start: 1.67em;
+       margin-block-end: 1.67em;
+       margin-inline-start: 0px;
+       margin-inline-end: 0px;
+       font-weight: bold;
+       }
+       body#rail-body {
+       color: #606060;
+       }
+       body {
+       margin: 0;
+       font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+       font-size: 1rem;
+       font-weight: 400;
+       line-height: 1.5;
+       color: #212529;
+       text-align: left;
+       background-color: #fff;
+       }
+                    </style>
+
+
+
+      <div class="container" >
+        <!-- navbar -->
+        <div class="row" >
+
+
+          <div class="col-md-8" id='right' style="margin-left: auto; margin-right: 0;" >
+            <br>
+            <ul id="rail-menu" style="float: right;">
+              <li><a href="{{object.github|safe}}" target="_blank">Github</a></li>
+              <li><a href="{{object.linkedin|safe}}" target="_blank">LinkedIn</a></li>
+              <li><a href="publications.html">publications</a></li>
+              <li><a href="code.html">software</a></li>
+              <li class="rail-menu-selected"><a href="contact.html">contact</a></li>
+            </ul>
+          </div>
+        </div> <!-- end -->
+
+
+        <br>
+        <h4>About {{object.title|safe}}</h4>
+        <br>
+        <!--    <h5>Research Engineers and Research Associates</h5>
+        <p>
+        We are hiring a research engineer. To apply, please go through the official <a href="https://aprecruit.berkeley.edu/JPF02481">UC Berkeley application form</a>. We look forward to hearing from you!
+        </p>
+
+        <br>-->
+        <h5>Email</h5>
+        <p>
+          {{object.email | safe}}
+        </p>
+
+        <br>
+
+        {% if object.personal_website != '' %}
+        <h5>Personal Website</h5>
+        <p>
+        <a href="{{object.personal_website}}">{{object.personal_website|safe}}</a>
+        </p>
+
+        <br>
+        {% endif %}
+
+
+        {% if object.m_uni != '' %}
+        <h5>Master's University</h5>
+        <!-- 'position','github','linkedin','research_area','work_field -->
+        <p>
+          {{object.m_uni|safe}}
+        </p>
+
+        <br>
+        {% endif %}
+
+        {% if object.phd_uni != '' %}
+
+        <h5>PhD University</h5>
+        <p>
+          {{object.phd_uni|safe}}
+        </p>
+        <br>
+
+        {% endif %}
+
+        {% if object.current_employer != '' %}
+
+        <h5>Current Employer</h5>
+        <p>
+          {{object.current_employer|safe}}
+        </p>
+        <br>
+
+        {% endif %}
+
+        {% if object.position != '' %}
+
+
+        <h5>Position</h5>
+        <p>
+          {{object.position|safe}}
+        </p>
+        <br>
+        {% endif %}
+
+        {% if object.research_area != '' %}
+        <h5>Research Area</h5>
+        <p>
+          {{object.research_area|safe}}
+        </p>
+        <br>
+        {% endif %}
+
+
+        {% if object.work_field != '' %}
+        <h5>Working Field</h5>
+        <p>
+          {{object.work_field|safe}}
+        </p>
+        <br>
+        {% endif %}
+
+
+        <hr>
+
+
+      </div>
+      <!--/container-->
+
 
     <!-- Like -->
-    {% if user.is_authenticated %}
-    <div class="text-center">
-        <a id="like" style="cursor: pointer;" class="text-center" data-url="{% url 'like_api' object.pk %}"><i
-                style="color: red" class="
-                like-icon
-                {% if user in object.liked.all %}
-                fas fa-heart fa-3x
-                {% else %}
-                far fa-heart fa-3x
-                {% endif %}
-                " id="like-icon"></i></a>
-        <h6 id="likes_count" style="color: red">{{object.liked.count}}</h6>
-    </div>
-    {% endif %}
 
 
     <!-- Comment Form -->
-    {% if user.is_authenticated %}
-    <div class="card my-4">
-        <h5 class="card-header">Leave a Comment:</h5>
-        <div class="card-body">
-            <form method="POST" action="{% url 'add_comment' object.id %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <textarea class="form-control" name="text" rows="3" required></textarea>
-                    <input type="hidden" name="user_id" value="{{user.id}}">
-                </div>
-                <button class="btn btn-primary" type="submit">Comment</button>
-            </form>
-        </div>
-    </div>
-    {% else %}
-    <a href="{% url 'login' %}" class="btn btn-success btn-lg btn-block mb-4">
-        Sign In for comment and like the post.
-    </a>
-    {% endif %}
-
-    <!-- Single Comments -->
-    {% for comment in post.comments.all %}
-    {% if comment.approved_comment %}
-    <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle article-img" src="{{ comment.author.profile.image.url }}" alt="">
-        <div class="media-body">
-            <h5 class="mt-0"><a href="{% url 'user_posts' comment.author.username %}">{{ comment.author }}</a></h5>
-            {{ comment.text|linebreaks }}
-            <hr>
-        </div>
-    </div>
-    {% else %}
-    <div class="alert alert-secondary" role="alert">
-        No Comment has been posted.
-    </div>
-    {% endif %}
-    {% endfor %}
 
     <!-- For Replay comments -->
-    <!-- <div class="media mb-4">
-        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-        <div class="media-body">
-            <h5 class="mt-0">Commenter Name</h5>
-            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio,
-            vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec
-            lacinia congue felis in faucibus.
 
-            <div class="media mt-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                    <h5 class="mt-0">Commenter Name</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
-                    purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-                    vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-            </div>
 
-            <div class="media mt-4">
-                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                <div class="media-body">
-                    <h5 class="mt-0">Commenter Name</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
-                    purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi
-                    vulputate fringilla. Donec lacinia congue felis in faucibus.
-                </div>
-            </div>
 
-        </div>
-    </div> -->
-</div>
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/dropdown/js/nav-dropdown.js"></script>
+  <script src="assets/dropdown/js/navbar-dropdown.js"></script>
+  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
+  <script src="assets/viewportchecker/jquery.viewportchecker.js"></script>
+  <script src="assets/bootstrapcarouselswipe/bootstrap-carousel-swipe.js"></script>
+  <script src="assets/mbr-testimonials-slider/mbr-testimonials-slider.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/formstyler/jquery.formstyler.js"></script>
+  <script src="assets/formstyler/jquery.formstyler.min.js"></script>
+  <script src="assets/datepicker/jquery.datetimepicker.full.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  <script src="assets/formoid/formoid.min.js"></script>
+
+
+
+
+<script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","1123285727682531");fbq("set","agent","tmgoogletagmanager","1123285727682531");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1123285727682531&amp;ev=PageView&amp;noscript=1"></noscript>
+<script type="text/javascript" id="">var myDomain="my.mobirise.com",links=document.getElementsByTagName("a");Array.prototype.forEach.call(links,function(a){0<=a.href.indexOf(myDomain)&&(a.search+=(0<a.search.length?"\x26":"")+"mbrui\x3d"+google_tag_manager["GTM-PFK425"].macro(15))});</script><script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/1071863997/?random=1639388295317&amp;cv=9&amp;fst=1639388295317&amp;num=1&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=864&amp;u_w=1536&amp;u_ah=816&amp;u_aw=1536&amp;u_cd=24&amp;u_his=2&amp;u_tz=360&amp;u_java=false&amp;u_nplug=5&amp;u_nmime=2&amp;gtm=2wgc10&amp;sendb=1&amp;ig=1&amp;frm=0&amp;url=https%3A%2F%2Fmobirise.com%2Fextensions%2Fpersonam4%2Fportfolio.html&amp;tiba=HTML5%20Bootstrap%20Portfolio%20Template%20-%20PersonaM4&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script>
+
 {% endblock content %}
