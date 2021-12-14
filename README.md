@@ -11,7 +11,11 @@ During my undergrad I have seen many of my fellow classmates and junior feel low
 ## About
 ![image](https://user-images.githubusercontent.com/56520367/145999976-15a9bc6b-0920-4fa5-ac64-f02452cdc6fc.png)
 
-# Register
+## Register
+![image](https://user-images.githubusercontent.com/56520367/146081709-ffdb70a0-7067-4808-ae8b-bd0acbd3ecaa.png)
+
+
+## Profile
 ![image](https://user-images.githubusercontent.com/56520367/146004829-25e48662-7565-40d4-b251-c58855d4358c.png)
 
 ## Add Personal Information
