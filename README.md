@@ -1,2 +1,4 @@
 # SUST CSE alumni repo
 An online repository of all SUST CSE alumni. 
+## Motivation
+During my undergrad I have seen many of my fellow classmates and junior feel low about their department. And sometimes we don't know exactly about the previous projects and researches conducted on SUST CSE department. There's also a lack of communication and information that makes the current students demotivated. Sometimes a good mentor can make you excel a thousand steps. But due to the lack of information we actually don't know about our seniors' reserach/project focuses. So we can't communicate with the right person due to our ignorance and if get, we need to struggle a lot. Thus to see their alumni achieving great feats inspires them a lot. So I'm hopeful this website will provide them with proper information and bridge the gap. As a result, the collaboration between our current and ex students will become easier
